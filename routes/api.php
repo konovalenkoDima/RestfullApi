@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
+    Route::get("/token", "getToken")->name("get.token");
+    Route::get("/users", "getUsers")->name("get.users");
+    Route::post("/users", "createUser")->name("create.user");
+    Route::get("/users/{id}", "searchUser")->name("search_user");
 });
+
+Route::get("/positions", [\App\Http\Controllers\PositionController::class, "getPositions"])->name("get.positions");
