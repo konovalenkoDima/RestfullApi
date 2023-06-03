@@ -158,7 +158,7 @@
         axios.get("{{route("get.positions")}}")
             .then(function (response) {
                 response.data.positions.forEach(position => {
-                    positions_table_body.innerHTML = '<tr>' +
+                    positions_table_body.innerHTML = positions_table_body.innerHTML + '<tr>' +
                         '<th scope="row">' + position.id + '</th>' +
                         '<td>' + position.name + '</td>' +
                         '</tr>'

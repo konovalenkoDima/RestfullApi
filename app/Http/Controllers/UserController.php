@@ -72,6 +72,20 @@ class UserController extends Controller
 
     public function createUser(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            "token" => ["required", "string"],
+        ], [
+            "required" => "The :attribute field is required.",
+        ]);
+
+        if ($validator->fails()) {
+            return response([
+                "success" => false,
+                "message" => "Validation failed",
+                "fails" => $validator->messages()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $this->sendIncorrectTokenResponse($request->input("token"));
 
         if (User::where("phone", "=", $request->input("phone"))
